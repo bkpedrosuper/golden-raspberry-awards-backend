@@ -23,3 +23,12 @@ After install dependencies, the project can be run with:
 ```
 python app.py
 ```
+
+## Tests
+Tests can be run with:
+```
+pytest
+```
+
+## Tryout!
+Once the application starts, you can navigate to [localhost:3300](http://localhost:3300) and test every endpoint in the API. Every endpoint is documented automatically by [Flask-Restx](https://flask-restx.readthedocs.io/en/latest/index.html)
