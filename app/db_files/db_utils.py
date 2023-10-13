@@ -9,6 +9,7 @@ from app.models.producer_movie import ProducerMovieModel
 from flask import Flask
 import sys
 import re
+from decouple import config
 
 import logging
 logging.basicConfig(level=logging.DEBUG)  # Set log level to DEBUG
@@ -87,9 +88,11 @@ def populate_db(db: SQLAlchemy, app: Flask, test=False):
     with app.app_context():
         db.drop_all() # DELETE ALL DATA FROM DATABASE
         db.create_all() # CREATE ALL TABLES
-        database_df = pd.read_csv(f'{os.getcwd()}/app/db_files/movielist.csv', sep=';') # read csv
+        database_path = config('DB_PATH')
         if test:
-            database_df = pd.read_csv(f'{os.getcwd()}/app/db_files/movielist_test.csv', sep=';') # read csv
+            database_path = config('DB_TEST_PATH')
+        
+        database_df = pd.read_csv(f'{os.getcwd()}/{database_path}', sep=';') # read csv
 
 
         insert_movies_from_df(database_df, db)
