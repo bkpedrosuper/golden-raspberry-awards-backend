@@ -1,4 +1,4 @@
-from db import db
+from extensions.db import db
 from typing import List
 
 class ProducerModel(db.Model):

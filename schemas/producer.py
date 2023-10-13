@@ -1,4 +1,4 @@
-from ma import ma
+from extensions.ma import ma
 from models.producer import ProducerModel
 
 

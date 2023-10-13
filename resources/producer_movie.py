@@ -1,12 +1,12 @@
-from flask import request, jsonify
+from flask import request, jsonify, make_response
 from flask_restx import Resource, fields
 
 from models.producer_movie import ProducerMovieModel
 from schemas.producer_movie import ProducerMovieSchema
 
-from api import api
+from extensions.api import api
 
-producer_movie_ns = api.namespace(name='ProducerMovies', description='ProducerMovie related operations', path='/producer_movies')
+producer_movie_ns = api.namespace(name='producer_movies', description='ProducerMovie related operations')
 
 ITEM_NOT_FOUND = "ProducerMovie not found."
 
@@ -20,7 +20,7 @@ item = producer_movie_ns.model('ProducerMovie', {
     'producer_id': fields.String('Producer ID'),
 })
 
-
+@producer_movie_ns.route('/<id>')
 class ProducerMovie(Resource):
 
     def get(self, id):
@@ -36,10 +36,19 @@ class ProducerMovie(Resource):
             return '', 204
         return {'message': ITEM_NOT_FOUND}, 404
 
+@producer_movie_ns.route('/')
 class ProducerMovieList(Resource):
     @producer_movie_ns.doc('Get all the Items')
     def get(self):
-        return producer_movie_list_schema.dump(ProducerMovieModel.find_all()), 200
+        results = [
+            {
+                "movie_id": producer_movie.movie_id,
+                "producer_id": producer_movie.producer_id,
+                "id": producer_movie.id,
+            }
+            for producer_movie in ProducerMovieModel.find_all()
+        ]
+        return make_response(jsonify(results), 200)
 
     @producer_movie_ns.expect(item)
     @producer_movie_ns.doc('Create an Item')

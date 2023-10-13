@@ -4,10 +4,10 @@ from models.producer_movie import ProducerMovieModel
 from models.movie import MovieModel
 from models.producer import ProducerModel
 
-from api import api
-from db import db
+from extensions.api import api
+from extensions.db import db
 
-problem_ns = api.namespace(name='Problem', description='Problem Solving Path', path='/problem')
+problem_ns = api.namespace(name='problem', description='Problem Solving Path')
 
 def create_dict_response(producer: str, previous: int, following: int):
     return {
@@ -48,6 +48,7 @@ def get_min_from_query(partial_result, current_min, min_interval, producer)  -> 
     
     return current_min, min_interval
 
+@problem_ns.route('/')
 class Problem(Resource):
     def get(self):
         # Join movies and producers via the producer_movie table and filter for winner movies

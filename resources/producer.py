@@ -5,9 +5,9 @@ from models.producer import ProducerModel
 from schemas.producer import ProducerSchema
 
 from server.instance import server
-from api import api
+from extensions.api import api
 
-producer_ns = api.namespace(name='Producers', description='Producer related operations', path='/producers')
+producer_ns = api.namespace(name='producers', description='Producer related operations')
 
 ITEM_NOT_FOUND = "Producer not found."
 
@@ -20,7 +20,7 @@ item = producer_ns.model('Producer', {
     'name': fields.String('Producer name'),
 })
 
-
+@producer_ns.route('/<id>')
 class Producer(Resource):
 
     def get(self, id):
@@ -50,7 +50,7 @@ class Producer(Resource):
         producer_data.save_to_db()
         return producer_schema.dump(producer_data), 200
 
-
+@producer_ns.route('/')
 class ProducerList(Resource):
     @producer_ns.doc('Get all the Items')
     def get(self):

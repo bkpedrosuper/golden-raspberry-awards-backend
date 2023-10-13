@@ -5,12 +5,11 @@ from models.movie import MovieModel
 from schemas.movie import MovieSchema
 
 from server.instance import server
-from api import api
+from extensions.api import api
 
-movie_ns = api.namespace(name='Movies', description='Movie related operations', path='/movies')
+movie_ns = api.namespace(name='movies', description="Movie related operations")
 
 ITEM_NOT_FOUND = "Movie not found."
-
 
 movie_schema = MovieSchema()
 movie_list_schema = MovieSchema(many=True)
@@ -22,6 +21,7 @@ item = movie_ns.model('Movie', {
     'year': fields.Integer(1990),
 })
 
+@movie_ns.route('/<id>')
 class Movie(Resource):
 
     def get(self, id):
@@ -52,7 +52,7 @@ class Movie(Resource):
         movie_data.save_to_db()
         return movie_schema.dump(movie_data), 200
 
-
+@movie_ns.route('/')
 class MovieList(Resource):
     @movie_ns.doc('Get all the Items')
     def get(self):

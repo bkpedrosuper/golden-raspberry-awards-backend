@@ -1,12 +1,6 @@
-from flask import Flask, Blueprint
-from flask_restx import Api
-from ma import ma
-from db import db
-from api import api, server_blueprint
+from flask import Flask
+from extensions.api import api, server_blueprint
 import os
-
-from marshmallow import ValidationError
-
 
 class Server():
     def __init__(self):

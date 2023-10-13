@@ -1,4 +1,4 @@
-from db import db
+from extensions.db import db
 from typing import List
 
 class ProducerMovieModel(db.Model):
@@ -18,9 +18,8 @@ class ProducerMovieModel(db.Model):
     def find_by_producer_id(cls, producer_id) -> "ProducerMovieModel":
         return cls.query.filter_by(producer_id=producer_id).first()
 
+    @classmethod
     def find_all(self) -> List["ProducerMovieModel"]:
-        for i in self.query.all():
-            print(i.movie_id)
         return self.query.all()
 
     def save_to_db(self) -> None:
