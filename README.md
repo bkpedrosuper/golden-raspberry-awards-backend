@@ -28,7 +28,7 @@ pip install -r requirements.txt
 ## Run project
 After install dependencies, the project can be run with:
 ```
-python app.py
+python main.py
 ```
 
 ## Tests
