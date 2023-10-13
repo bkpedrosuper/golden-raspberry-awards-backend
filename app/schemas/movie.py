@@ -1,5 +1,5 @@
-from extensions.ma import ma
-from models.movie import MovieModel
+from app.extensions.ma import ma
+from app.models.movie import MovieModel
 
 
 class MovieSchema(ma.SQLAlchemyAutoSchema):

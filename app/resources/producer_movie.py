@@ -1,10 +1,10 @@
 from flask import request, jsonify, make_response
 from flask_restx import Resource, fields
 
-from models.producer_movie import ProducerMovieModel
-from schemas.producer_movie import ProducerMovieSchema
+from app.models.producer_movie import ProducerMovieModel
+from app.schemas.producer_movie import ProducerMovieSchema
 
-from extensions.api import api
+from app.extensions.api import api
 
 producer_movie_ns = api.namespace(name='producer_movies', description='ProducerMovie related operations')
 

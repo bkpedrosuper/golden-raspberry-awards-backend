@@ -1,5 +1,5 @@
-from extensions.ma import ma
-from models.producer_movie import ProducerMovieModel
+from app.extensions.ma import ma
+from app.models.producer_movie import ProducerMovieModel
 
 
 class ProducerMovieSchema(ma.SQLAlchemyAutoSchema):

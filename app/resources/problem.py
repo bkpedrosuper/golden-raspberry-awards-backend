@@ -1,11 +1,11 @@
 from flask import jsonify, make_response
 from flask_restx import Resource
-from models.producer_movie import ProducerMovieModel
-from models.movie import MovieModel
-from models.producer import ProducerModel
+from app.models.producer_movie import ProducerMovieModel
+from app.models.movie import MovieModel
+from app.models.producer import ProducerModel
 
-from extensions.api import api
-from extensions.db import db
+from app.extensions.api import api
+from app.extensions.db import db
 
 problem_ns = api.namespace(name='problem', description='Problem Solving Path')
 

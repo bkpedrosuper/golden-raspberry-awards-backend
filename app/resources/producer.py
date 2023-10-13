@@ -1,11 +1,10 @@
 from flask import request
 from flask_restx import Resource, fields
 
-from models.producer import ProducerModel
-from schemas.producer import ProducerSchema
+from app.models.producer import ProducerModel
+from app.schemas.producer import ProducerSchema
 
-from server.instance import server
-from extensions.api import api
+from app.extensions.api import api
 
 producer_ns = api.namespace(name='producers', description='Producer related operations')
 

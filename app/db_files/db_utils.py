@@ -3,9 +3,9 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.exc import IntegrityError
 import os
-from models.movie import MovieModel
-from models.producer import ProducerModel
-from models.producer_movie import ProducerMovieModel
+from app.models.movie import MovieModel
+from app.models.producer import ProducerModel
+from app.models.producer_movie import ProducerMovieModel
 from flask import Flask
 import sys
 import re
@@ -15,7 +15,6 @@ logging.basicConfig(level=logging.DEBUG)  # Set log level to DEBUG
 
 
 def insert_movies_from_df(df: pd.DataFrame, db: SQLAlchemy):
-    print(f'Populating movies')
     movies = []
     for _, row in df.iterrows():
         winner = 1 if row.winner == 'yes' else 0
@@ -32,7 +31,6 @@ def insert_movies_from_df(df: pd.DataFrame, db: SQLAlchemy):
 
 
 def insert_producers_from_df(df: pd.DataFrame, db: SQLAlchemy):
-    print(f'Populating producers')
     all_producers = []
     for _, row in df.iterrows():
         # Get a list of producer_movies spliting them by ' and ' and ','
@@ -54,7 +52,6 @@ def insert_producers_from_df(df: pd.DataFrame, db: SQLAlchemy):
 
 
 def insert_producers_movie_from_df(df: pd.DataFrame, db: SQLAlchemy):
-    print(f'Populating producers_movies')
     for _, row in df.iterrows():
         
         # Get the movie from row
@@ -85,12 +82,15 @@ def insert_producers_movie_from_df(df: pd.DataFrame, db: SQLAlchemy):
     db.session.commit()
 
 
-def populate_db(db: SQLAlchemy, app: Flask):
+def populate_db(db: SQLAlchemy, app: Flask, test=False):
     app.logger.info(f'Populating Database...')
     with app.app_context():
         db.drop_all() # DELETE ALL DATA FROM DATABASE
         db.create_all() # CREATE ALL TABLES
-        database_df = pd.read_csv(f'{os.getcwd()}/db_files/movielist.csv', sep=';') # read csv
+        database_df = pd.read_csv(f'{os.getcwd()}/app/db_files/movielist.csv', sep=';') # read csv
+        if test:
+            database_df = pd.read_csv(f'{os.getcwd()}/app/db_files/movielist_test.csv', sep=';') # read csv
+
 
         insert_movies_from_df(database_df, db)
         insert_producers_from_df(database_df, db)

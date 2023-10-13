@@ -1,5 +1,5 @@
-from extensions.ma import ma
-from models.producer import ProducerModel
+from app.extensions.ma import ma
+from app.models.producer import ProducerModel
 
 
 class ProducerSchema(ma.SQLAlchemyAutoSchema):

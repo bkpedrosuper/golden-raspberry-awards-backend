@@ -1,11 +1,10 @@
 from flask import request
 from flask_restx import Resource, fields
 
-from models.movie import MovieModel
-from schemas.movie import MovieSchema
+from app.models.movie import MovieModel
+from app.schemas.movie import MovieSchema
 
-from server.instance import server
-from extensions.api import api
+from app.extensions.api import api
 
 movie_ns = api.namespace(name='movies', description="Movie related operations")
 
