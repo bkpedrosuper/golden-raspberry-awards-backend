@@ -1,9 +1,16 @@
 # golden-raspberry-awards-backend
 API made with Python-Flask for Golden Raspberry Awards
 
+## Initial Setup
+After clone, you must create a `.env` file in the root of the project.
+Example:
+```
+DEBUG=True
+DB_PATH=app/db_files/movielist.csv
+DB_TEST_PATH=app/db_files/movielist_test.csv
+```
 
 ## Install dependencies
-After download, the project can install its dependencis running:
 
 ### With Poetry
 This project is recommended to be loaded with Poetry.
@@ -21,7 +28,7 @@ pip install -r requirements.txt
 ## Run project
 After install dependencies, the project can be run with:
 ```
-python app.py
+python main.py
 ```
 
 ## Tests
