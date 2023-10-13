@@ -11,7 +11,6 @@ DB_TEST_PATH=app/db_files/movielist_test.csv
 ```
 
 ## Install dependencies
-After download, the project can install its dependencis running:
 
 ### With Poetry
 This project is recommended to be loaded with Poetry.
