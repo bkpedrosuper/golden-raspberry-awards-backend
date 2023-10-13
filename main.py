@@ -22,6 +22,6 @@ def handle_validation_error(error):
 
 if __name__ == '__main__':
     db.init_app(app)
-    populate_db(db, app, True)
+    populate_db(db, app)
     ma.init_app(app)
     server.run()
