@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "api-flask-sqlalchemy"
+name = "golden-raspberry-awards-backend"
 version = "0.1.0"
 description = ""
 authors = ["Pedro Serpa <pedroserpah@gmail.com>"]
