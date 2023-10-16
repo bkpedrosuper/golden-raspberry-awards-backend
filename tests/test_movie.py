@@ -1,6 +1,7 @@
 import json
 import pandas as pd
 import os
+import pytest
 from decouple import config
 
 def test_create_movie(client):
@@ -43,3 +44,15 @@ def test_get_movie(client):
     assert data["id"] == 1
     assert data["title"] == "Can't Stop the Music"
     assert data["year"] == 1980
+
+@pytest.mark.parametrize("winner_param", ["true", "false"])
+def test_winning_movies(client, winner_param):
+    response = client.get(f'/movies/?winner={winner_param}')
+
+    assert response.status_code == 200
+    data = json.loads(response.data)
+    movies = data['data']
+
+    expected_winner = 1 if winner_param == "true" else 0
+    for movie in movies:
+        assert movie['winner'] == expected_winner

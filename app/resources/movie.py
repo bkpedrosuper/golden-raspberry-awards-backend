@@ -14,11 +14,11 @@ movie_schema = MovieSchema()
 movie_list_schema = MovieSchema(many=True)
 
 # Define parsers
-parser = reqparse.RequestParser()
-parser.add_argument('page', type=int, default=1, help='Page number')
-parser.add_argument('limit', type=int, default=10, help='Movies per page')
-parser.add_argument('winner', type=str, default=None, help='Filter by winner')
-parser.add_argument('year', type=int, default=None, help='Filter by year')
+movie_parser = reqparse.RequestParser()
+movie_parser.add_argument('page', type=int, default=1, help='Page number')
+movie_parser.add_argument('limit', type=int, default=10, help='Movies per page')
+movie_parser.add_argument('winner', type=str, default=None, help='Filter by winner')
+movie_parser.add_argument('year', type=int, default=None, help='Filter by year')
 
 # Model required by flask_restplus for expect
 item = movie_ns.model('Movie', {
@@ -60,9 +60,11 @@ class Movie(Resource):
 
 @movie_ns.route('/')
 class MovieList(Resource):
+
+    @movie_ns.expect(movie_parser)
     @movie_ns.doc('Get all the Items')
     def get(self):
-        args = parser.parse_args()
+        args = movie_parser.parse_args()
         page = args['page']
         limit = args['limit']
         winner_param = args['winner']
